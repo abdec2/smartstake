@@ -68,11 +68,11 @@ financial constraints </p>
             <h2>AUDIT REPORT</h2>
             <div>
             <div className='pdfBox'>
-                <a  href='\documents\AUDIT.pdf'  target="_blank"> 
+                <a  href='/Documents/audit.pdf'  target="_blank"> 
                 <img src='\assets\images\banner\icon_kyc_5.png' className='pdfIcon_image'/>    
                 </a>
                 <h6>Approved</h6>
-                <a href='\documents\AUDIT.pdf' target="_blank">
+                <a href='/Documents/audit.pdf' target="_blank">
                 <img src='\assets\images\banner\icon_kyc_4.png' className='pdfIcon_image'/>  
                  </a>
                     </div>
