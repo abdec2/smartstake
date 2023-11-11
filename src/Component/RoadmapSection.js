@@ -19,7 +19,7 @@ const RoadmapSection = () => {
                         <div className="roadmap__item2-inner">
                             <div className="roadmap__item2-content">
                                 <div className="roadmap__item2-header">
-                                <h3>Q3, 2024</h3>
+                                <h3>Q4, 2023</h3>
                                     <h4>Website Development</h4>
                                     
                                 </div>
