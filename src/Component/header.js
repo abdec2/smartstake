@@ -39,13 +39,13 @@ const HeaderComponent = () => {
                                   
                                   
                                   <li onClick={() => setIsOpen(false)}>
-                                 
-                                   
-                                  <Link to={'/Staking'} >Staking</Link>  
-                                 
-                                 
-                                      
+                                    <Link to={'/Staking'} >Staking</Link>  
                                   </li>
+
+                                  <li onClick={() => setIsOpen(false)}>
+                                    <a href='https://www.pinksale.finance/launchpad/0x77EdD68507e912DFf67DB6eB7866971b145d0a48?chain=BSC' target='blank'>Presale</a> 
+                                  </li>
+
                                   <li onClick={() => setIsOpen(false)}>
                                       <Link to={'BuyToken'}>Buy Now</Link>
                                      
