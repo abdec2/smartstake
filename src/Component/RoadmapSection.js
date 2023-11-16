@@ -58,7 +58,7 @@ vulnerabilities and ensure seamless transactions.</p>
 
                             <div className="roadmap__item2-content">
                                 <div className="roadmap__item2-header">
-                                    <h4>Fair Launch on Pink Sale</h4>
+                                    <h4>Presale on Pink Sale</h4>
                                     
                                 </div>
                                 <p>Transparency is key. Our initial token distribution via Pink Sale or
@@ -70,11 +70,11 @@ foundation for a decentralized and inclusive community.
                            
                             <div className="roadmap__item2-content">
                                 <div className="roadmap__item2-header">
-                                    <h4>Fair Funds Allocations</h4>
+                                    <h4>Funds Allocations</h4>
                                     
                                 </div>
                                 <p>To kick start our journey, we will strategically allocate 70% of the
-funds to the launch, fortify trading with 60% dedicated to liquidity, and set aside 40% to
+funds to the presale, fortify trading with 60% dedicated to liquidity, and set aside 40% to
 spearhead impactful marketing campaigns.
 </p>
                             </div>
