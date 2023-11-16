@@ -37,7 +37,9 @@ const FooterSection = () => {
             <div className="container">
                 <div className="text-center py-4">
                     <p className=" mb-0">Smartstaking © 2023 | All Rights Reserved </p>
+                    <p className="mb-0">Powered by: <a className='text-primary' href='https://aradchain.tech' target='blank'>Aradchain</a></p>
                 </div>
+                
             </div>
         </div>
     </footer>
