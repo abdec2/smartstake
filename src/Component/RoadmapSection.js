@@ -74,7 +74,7 @@ foundation for a decentralized and inclusive community.
                                     
                                 </div>
                                 <p>To kick start our journey, we will strategically allocate 70% of the
-funds to the presale, fortify trading with 60% dedicated to liquidity, and set aside 40% to
+funds to presale, fortify trading with 60% dedicated to liquidity, and set aside 40% to
 spearhead impactful marketing campaigns.
 </p>
                             </div>
