@@ -14,8 +14,90 @@ h4.h7 {
   color: #16579e;
 }
 
+
+.stacking__project-itemInner > p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #feffff;
+}
+.stacking__ammount > p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #feffff;
+}
+.stacking__details {
+  background-color: #0a306e;
+  border-radius: 5px;
+}
+li.stacking__info-item > p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #feffff;
+}
+.stacking__project-item {
+  background-color: #0a306e;
+  border-radius: 5px;
+}
+.stacking__approve .input-group-btn.withdraw-btn {
+  background-color: rgba(40, 219, 209, 0.1);
+  color: #feffff;
+  border-color: rgb(20 80 150);
+}
+.swap1 {
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 20px;
+  background-color: #0c3c7c;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 30px;
+}
+.swap1 {
+  border-radius: 3px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 5px 20px;
+  background-color: #0c3c7c;
+  align-items: center;
+}
+.stacking__period-list .nav-link {
+  border: 1px solid rgba(40, 219, 209, 0.3);
+  border-radius: 5px;
+  padding: 1rem 1.25rem;
+  color: #feffff;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.stacking__apy > p {
+  color: white;
+}
+.stacking__apy h3 {
+  color: #feffff;
+}
+.stacking__approve .input-group-btn {
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    background-color: #145096;
+    border: none;
+    padding-inline: 2rem;
+    color: #feffff;
+    font-weight: 700;
+    border: 1px solid transparent;
+}
 .submenustyle{
   display: none !important;
+}
+.stacking__period-list .nav-link.active {
+  background-color: #145096;
+  color: #feffff;
+}
+.stacking__ammount h4 {
+  color: #feffff;
 }
 
 .stakingButton{
@@ -920,7 +1002,7 @@ cursor: pointer;
  border-radius: 20px;
   display: flex;
   justify-content: space-between;
-  width: 380px;
+  width: 100%;
   padding: 5px 20px;
   background-color: #0c3c7c;
   align-items: center;
@@ -939,12 +1021,25 @@ cursor: pointer;
   padding: 15px;
   color: #0c3c7c;;
  }
+ .swap1 > button {
+  border: none;
+  background-color: white;
+  border-radius: 20px;
+  font-size: 14px;
+  color: white;
+  padding: 15px;
+  color: #0c3c7c;;
+ }
  .availableHeading{
   display: flex;
   justify-content: end;
   margin-right: 15px;
  
  }
+ .stacking__approve .input-group-btn.withdraw-btn:hover {
+  background-color: #145096;
+  color: #ffffff;
+}
  .secondInputDiv{
   display: flex;
   justify-content: space-evenly;
