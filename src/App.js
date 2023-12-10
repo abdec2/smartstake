@@ -18,6 +18,7 @@ import { createWeb3Modal, defaultWagmiConfig } from '@web3modal/wagmi/react'
 
 import { WagmiConfig } from 'wagmi'
 import { arbitrum, mainnet } from 'wagmi/chains'
+import Presale from "./Presale";
 
 // 1. Get projectId
 
@@ -74,6 +75,7 @@ createWeb3Modal({ wagmiConfig, projectId, chains })
         <Route path="Team" element={<Team/>} />  
         <Route path="Staking" element={<Staking/>}/>
         <Route path="bio" element={<Bio/>}/>
+        <Route path="presale" element={<Presale />}/>
         
         <Route path="BuyToken" element={<BuyToken/>}/>
         <Route path="KnowledgeBase" element={<KnowledgeBase/>}/>

@@ -208,28 +208,57 @@ contract Presale is ReentrancyGuard  {
     address private _wallet;
     address private _tokenWallet;
 
-    uint256 private _rate;
     // Amount of wei raised
     uint256 private _weiRaised;
 
-    uint256 private _minContribution = 50000000;
+    uint256 private _minContribution = 1000;
     uint256 private _totalDistribution;
+
+    enum Stages {STAGE_1, STAGE_2, STAGE_3, STAGE_4, STAGE_5, STAGE_6}
+
+    Stages stage = Stages.STAGE_1;
+
+    mapping(Stages => uint256) public rates;
 
     event TokensPurchased(address indexed purchaser, address indexed beneficiary, uint256 value, uint256 amount);
 
-    constructor (uint256 rate_, address wallet_, IERC20 token_, IERC20 usdt_, address tokenWallet_, address uniswapRouter) {
-        require(rate_ > 0, "Crowdsale: rate is 0");
+    constructor (address wallet_, IERC20 token_, IERC20 usdt_, address tokenWallet_, address uniswapRouter) {
         require(wallet_ != address(0), "Crowdsale: wallet is the zero address");
         require(address(token_) != address(0), "Crowdsale: token is the zero address");
         require(address(usdt_) != address(0), "Crowdsale: usdt is the zero address");
         require(tokenWallet_ != address(0), "Crowdsale: token wallet is the zero address");
 
-        _rate = rate_; // as rate is 0.00000002 we will make it 2 and in getTokenAmount function we will divide the result with 100000000
         _wallet = wallet_;
         _token = token_;
         _usdt = usdt_;
         _tokenWallet = tokenWallet_;
-        uniswapV2Router = IUniswapV2Router02(uniswapRouter);
+        uniswapV2Router = IUniswapV2Router02(uniswapRouter); //0xD99D1c33F9fC3444f8101754aBC46c52416550D1
+        rates[Stages.STAGE_1] = 5000;  // divide it by 1000
+        rates[Stages.STAGE_2] = 4545;  // divide it by 1000
+        rates[Stages.STAGE_3] = 4166;  // divide it by 1000
+        rates[Stages.STAGE_4] = 3846;  // divide it by 1000
+        rates[Stages.STAGE_5] = 3571;  // divide it by 1000
+        rates[Stages.STAGE_6] = 3333;  // divide it by 1000
+
+    }
+
+    receive() external payable {
+        uint256 amountReceived = convertBnbToToken(
+            usdToken,
+            msg.value,
+            address(this)
+        );
+
+        buyTokens(msg.sender, amountReceived);
+        
+    }
+
+    function getStage() public view returns (Stages) {
+        return stage;
+    }
+
+    function setStage(Stages _stage) external {
+        stage = _stage;
     }
 
     function token() public view returns (IERC20) {
@@ -244,10 +273,6 @@ contract Presale is ReentrancyGuard  {
         return _tokenWallet;
     }
 
-    function rate() public view returns (uint256) {
-        return _rate;
-    }
-
     function weiRaised() public view returns (uint256) {
         return _weiRaised;
     }
@@ -257,6 +282,23 @@ contract Presale is ReentrancyGuard  {
     }
 
     function buyTokens(address beneficiary, uint256 amount) public nonReentrant {
+        uint256 weiAmount = amount;
+        _preValidatePurchase(beneficiary, weiAmount);
+
+        // calculate token amount to be created
+        uint256 tokens = _getTokenAmount(weiAmount);
+
+        // update state
+        _weiRaised = _weiRaised.add(weiAmount);
+        _totalDistribution = _totalDistribution.add(tokens);
+
+        _processPurchase(beneficiary, tokens);
+        _forwardFunds(weiAmount);
+        emit TokensPurchased(msg.sender, beneficiary, weiAmount, tokens);
+
+    }
+
+    function buyTokensBUSD(address beneficiary, uint256 amount) public nonReentrant {
         uint256 weiAmount = amount;
         _preValidatePurchase(beneficiary, weiAmount);
 
@@ -291,7 +333,7 @@ contract Presale is ReentrancyGuard  {
     }
 
     function _getTokenAmount(uint256 weiAmount) internal view returns (uint256) {
-        return weiAmount.mul(_rate).div(100000000);
+        return weiAmount.mul(rates[stage]).div(1000);
     }
 
 
@@ -318,6 +360,10 @@ contract Presale is ReentrancyGuard  {
         uint256 balanceDiff = balanceAfter - balanceBefore;
         // send the difference to the wallet
         return balanceDiff;
+    }
+
+    function _forwardFunds(uint256 _amount) internal {
+        _usdt.safeTransfer(_wallet, _amount);
     }
 
 }
