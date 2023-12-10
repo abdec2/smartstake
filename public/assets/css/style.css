@@ -1042,18 +1042,18 @@ ol {
 
 .upload__item > p, .widget.widget-project .widget-project__list-item h6, .widget.widget-info .widget-info__list-content h6, .widget.widget-service .widget-service__list-item p, .widget .widget__header h5, .token__info-list-item p, .counter__item p, .team__content h5,
 .team__content p, .tier__value, .tier__body h4, .tier__head p, .tier__head h4, .benifit__item-content p, .apply-project__block-header h4, .project__infolist-item p, .project__item2 .project__item-amount, .project__item2-inner p, .project__item-author h4, .lead-project__content h6, .account-wrapper .account-title p, .roadmap__item2-content p, .roadmap__item2-header h4,
-.roadmap__item2-header p, .roadmap__item-text p, .farming__list-item p, .farming__content-title p, .stacking__info-item p, .stacking__content .note-text, .stacking__ammount p, .stacking__title h3, .stacking__project-item p, .pro-details__token-title h6, .pro-details__token-item p, .pro-details__info-value, .header-top-area .left, .header-top-area .social-icons li p, ul,
+.roadmap__item2-header p, .roadmap__item-text p, .farming__list-item p, .farming__content-title p, .presale__info-item p, .presale__content .note-text, .presale__ammount p, .presale__title h3, .presale__project-item p, .stacking__info-item p, .stacking__content .note-text, .stacking__ammount p, .stacking__title h3, .stacking__project-item p, .pro-details__token-title h6, .pro-details__token-item p, .pro-details__info-value, .header-top-area .left, .header-top-area .social-icons li p, ul,
 ol {
   margin-bottom: 0;
 }
 
-.widget.widget-info .widget-info__list-content p, .tier__title, .project__infolist-item:not(:last-child), .project__item-amount p, .roadmap__item-year h4, .comments .comment-list .comment .com-content .com-title .com-title-meta span, .stacking__apy p, .rules__item:not(:last-child), .pro-details__tokenlist-item:not(:last-child) {
+.widget.widget-info .widget-info__list-content p, .tier__title, .project__infolist-item:not(:last-child), .project__item-amount p, .roadmap__item-year h4, .comments .comment-list .comment .com-content .com-title .com-title-meta span, .presale__apy p, .stacking__apy p, .rules__item:not(:last-child), .pro-details__tokenlist-item:not(:last-child) {
   margin-bottom: 5px;
 }
 
 .widget.widget-project .widget-project__list-item p, .team .social, .benifit__item-content h4, .footer__content h3, .service__item-content h4, .comments .comment-list .comment .com-content .com-title, .authors .author-content h4,
 .authors .author-content p, .article-pagination .prev-article a,
-.article-pagination .next-article a, .farming__content-title h3, .stacking__info-item:not(:last-child), .kyc__form .form-check:not(:last-child), .section-header__subtitle {
+.article-pagination .next-article a, .farming__content-title h3, .presale__info-item:not(:last-child), .stacking__info-item:not(:last-child), .kyc__form .form-check:not(:last-child), .section-header__subtitle {
   margin-bottom: 10px;
 }
 
@@ -1069,11 +1069,11 @@ ol {
   margin-bottom: 25px;
 }
 
-.widget.widget-author .widget-author__thumb, .project__item-amount, .error__wrapper p, .roadmap__item-year, .farming__thumb, .stacking__period-list, .stacking__ammount, .section-header--left {
+.widget.widget-author .widget-author__thumb, .project__item-amount, .error__wrapper p, .roadmap__item-year, .farming__thumb, .presale__period-list, .presale__ammount, .stacking__period-list, .stacking__ammount, .section-header--left {
   margin-bottom: 30px;
 }
 
-.account-wrapper .account-title, .contact .form textarea, .stacking__project, .pro-details__desc-content section:not(:last-child), .banner__content p {
+.account-wrapper .account-title, .contact .form textarea, .presale__project, .stacking__project, .pro-details__desc-content section:not(:last-child), .banner__content p {
   margin-bottom: 40px;
 }
 
@@ -1105,7 +1105,7 @@ ol {
   margin-top: 45px;
 }
 
-.stacking__content .note-text {
+.presale__content .note-text, .stacking__content .note-text {
   margin-top: 50px;
 }
 
@@ -1134,7 +1134,7 @@ ol {
   padding: 0;
 }
 
-.pro-details__info-item {
+.presale__title, .pro-details__info-item {
   padding: 10px;
 }
 
@@ -1142,7 +1142,7 @@ ol {
   padding: 15px;
 }
 
-.widget .widget__header, .token__info-list-item, .team__content, .apply-project__block-header, .farming__claim, .pro-details__token-item, .pro-details__info {
+.widget .widget__header, .token__info-list-item, .team__content, .apply-project__block-header, .farming__claim, .presale__content, .pro-details__token-item, .pro-details__info {
   padding: 20px;
 }
 
@@ -1154,7 +1154,7 @@ ol {
   padding: 30px;
 }
 
-.custom-upload, .stacking__project-item {
+.custom-upload, .presale__project-item, .stacking__project-item {
   padding: 40px;
 }
 
@@ -1182,7 +1182,7 @@ ol {
 }
 .header-section.header-fixed {
   position: fixed;
-  background-color: #02121D;
+  background-color: #feffff;
   top: 0;
   left: 0;
   animation: fadeInDown 0.5s;
@@ -1370,7 +1370,7 @@ ol {
     -moz-transition: all ease 0.3s;
     transition: all ease 0.3s;
     z-index: 9;
-    background: white;
+    background: #0A1F2F;
     width: 220px;
     padding: 0;
     -webkit-transform: translateY(35px);
@@ -1380,7 +1380,6 @@ ol {
     visibility: hidden;
     border: 1px solid rgba(40, 219, 209, 0.1);
     border-radius: 5px;
-    color: #1e1c1c;
   }
   .menu li .submenu li {
     padding: 0;
@@ -1392,15 +1391,15 @@ ol {
     align-items: center;
     justify-content: space-between;
     font-size: 16px;
-    color: #1e1c1c;
+    color: #fff;
     font-weight: 600;
     border-bottom: 1px solid rgba(40, 219, 209, 0.1);
     border-radius: 5px;
   }
   .menu li .submenu li a:hover, .menu li .submenu li a.active {
-    background-color: #16589e;
+    background: #28DBD1;
     padding-left: 22px;
-    color: white;
+    color: #000000;
   }
   .menu li .submenu li a:hover::after, .menu li .submenu li a:hover::before, .menu li .submenu li a.active::after, .menu li .submenu li a.active::before {
     background: #02121D;
@@ -1717,7 +1716,7 @@ ol {
   left: 50%;
   width: 200px;
   aspect-ratio: 7/1;
-  background-image: url(../images/shape/header-svg3.svg);
+  background-image: url(../images/shape/header.svg);
 }
 
 .page-header {
@@ -2359,6 +2358,119 @@ ol {
   border-color: rgba(40, 219, 209, 0.6);
 }
 .stacking__approve .input-group-btn.withdraw-btn:hover {
+  background-color: #28dbd1;
+  color: #02121D;
+}
+
+.presale__project-item {
+  background-color: #0A1F2F;
+  border-radius: 5px;
+}
+.presale__title {
+  border-bottom: 2px solid #02121D;
+}
+@media (min-width: 992px) {
+  .presale__title {
+    padding: 10px 40px;
+  }
+}
+.presale__ammount h4 {
+  color: #28DBD1;
+}
+.presale__details {
+  background-color: #0a306e;
+  border-radius: 5px;
+}
+@media (min-width: 992px) {
+  .presale__content {
+    padding: 20px;
+  }
+}
+.presale__content .note-text {
+  max-inline-size: 50ch;
+}
+.presale__content .note-text strong {
+  color: #28DBD1;
+}
+.presale__period-list {
+  gap: 15px;
+}
+.presale__period-list .nav-link {
+  border: 1px solid rgba(40, 219, 209, 0.3);
+  border-radius: 5px;
+  padding: 1rem 1.25rem;
+  color: #28DBD1;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.presale__period-list .nav-link.active {
+  background-color: #28DBD1;
+  color: #02121D;
+}
+.presale__info-value {
+  font-weight: 700;
+  color: #fff;
+}
+.presale__apy h3 {
+  color: #28DBD1;
+}
+@media (min-width: 768px) {
+  .presale__approve {
+    padding: 30px;
+    border-radius: 5px;
+    background-color: rgba(2, 18, 29, 0.4);
+  }
+}
+.presale__approve .form-control {
+  background-color: #02121D;
+  border-color: #02121D;
+  padding: 15px 30px;
+  color: #C1C7CB;
+  padding-inline-end: 10px;
+}
+.presale__approve .form-control ::placeholder {
+  color: #C1C7CB;
+}
+.presale__approve .form-control:focus {
+  box-shadow: none;
+  border-color: rgba(40, 219, 209, 0.2);
+}
+.presale__approve .form-label {
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+}
+.presale__approve .form-label span {
+  color: #C1C7CB;
+}
+.presale__approve .input-group {
+  border: 1px solid rgba(40, 219, 209, 0.1);
+  border-radius: 5px;
+}
+.presale__approve .input-group-text {
+  background-color: #02121D;
+  color: rgba(193, 199, 203, 0.3);
+  border-color: #02121D;
+}
+.presale__approve .input-group-btn {
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  background-color: #28DBD1;
+  border: none;
+  padding-inline: 2rem;
+  color: #02121D;
+  font-weight: 700;
+  border: 1px solid transparent;
+}
+.presale__approve .input-group-btn.withdraw-btn {
+  background-color: rgba(40, 219, 209, 0.1);
+  color: #28DBD1;
+  border-color: rgba(40, 219, 209, 0.6);
+}
+.presale__approve .input-group-btn.withdraw-btn:hover {
   background-color: #28dbd1;
   color: #02121D;
 }
@@ -3354,7 +3466,7 @@ ol {
   -ms-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
-  background-image: url(../images/shape/logoicon.svg);
+  background-image: url(../images/shape/logo.svg);
   background-size: contain;
   background-repeat: no-repeat;
   top: 0;

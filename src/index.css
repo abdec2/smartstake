@@ -14,6 +14,14 @@ h4.h7 {
   color: #16579e;
 }
 
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+  background-color: #145096;
+}
+
+.nav-pills .nav-link {
+  border-radius: 0;
+}
+
 
 .stacking__project-itemInner > p {
   margin-top: 0;
