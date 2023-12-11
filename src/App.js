@@ -12,14 +12,10 @@ import Bio from "./bio"
 import  KnowledgeBase  from "./knowledgeBase";
 import Presale from "./Presale";
 
-import { createWeb3Modal } from '@web3modal/wagmi/react'
-import { walletConnectProvider, EIP6963Connector } from '@web3modal/wagmi'
+import { createWeb3Modal, defaultWagmiConfig  } from '@web3modal/wagmi/react'
 
-import { WagmiConfig, configureChains, createConfig } from 'wagmi'
-import { publicProvider } from 'wagmi/providers/public'
+import { WagmiConfig } from 'wagmi'
 import { bscTestnet } from 'viem/chains'
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
-import { InjectedConnector } from 'wagmi/connectors/injected'
 
 
 
@@ -27,26 +23,14 @@ import { InjectedConnector } from 'wagmi/connectors/injected'
 // 1. Get projectId
 const projectId = 'd631e72662e5cb28e0026c4277e0e630'
 
-const { chains, publicClient } = configureChains(
-  [bscTestnet],
-  [walletConnectProvider({projectId}), publicProvider()]
-)
 const metadata = {
   name: 'Smart Staking'
-  
 }
 
-const wagmiConfig = createConfig({
-  autoConnect: false,
-  connectors: [
-    new WalletConnectConnector({ chains, options: { projectId, showQrModal: false, metadata } }),
-    new EIP6963Connector({ chains }),
-    new InjectedConnector({ chains, options: { shimDisconnect: true } }),
+const chains = [bscTestnet]
 
-  ],
+const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata })
 
-  publicClient
-})
 
 createWeb3Modal({ wagmiConfig, projectId, chains })
 

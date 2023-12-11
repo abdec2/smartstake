@@ -4,9 +4,47 @@ import Busd from './Component/Busd';
 import bnbIcon from './icons/bnb.png'
 import busdIcon from './icons/busd.png'
 import { useState } from 'react';
+import { CONFIG } from './config/config'
+import presaleABI from './config/presaleAbi.json'
+import { useContractReads } from 'wagmi'
+import { formatEther } from 'viem';
+
+const presaleContract = {
+    address: CONFIG.PRESALE_CONTRACT_ADDRESS,
+    abi: presaleABI,
+  }
+  
 
 const Presale = () => {
     const [showTab, setShowTab] = useState(1)
+    const [stage, setStage] = useState(0)
+    const [amountRaised, setAmountRaised] = useState(0)
+    const [rate, setRate] =useState(0)
+    const { data, isError, isLoading } = useContractReads({
+        contracts: [
+            {
+                ...presaleContract, 
+                functionName: 'getStage'
+            },
+            {
+                ...presaleContract, 
+                functionName: 'weiRaised'
+            }
+        ], 
+        onSuccess(data) {
+            setStage(data[0]?.result)
+            setAmountRaised(formatEther(data[1]?.result))
+        }
+    })
+    const rates = {
+        0: 0.2,
+        1: 0.22,
+        2: 0.24,
+        3: 0.26,
+        4: 0.28,
+        5: 0.3
+    }
+
   return (
     <div className="stacking padding-top padding-bottom">
     <div className="container">
@@ -16,21 +54,21 @@ const Presale = () => {
                     <div className="col-sm-12 col-md-5">
                         <div className="stacking__project-item">
                             <div className="stacking__project-itemInner">
-                                <h3>1 </h3>
+                                <h3>STAGE {stage+1} </h3>
                                 <p>Stage</p>
                             </div>
                         </div>
 
                         <div className="stacking__project-item mt-4">
                             <div className="stacking__project-itemInner">
-                                <h3>$ 4514 </h3>
+                                <h3>$ {parseFloat(amountRaised).toFixed(4)} </h3>
                                 <p>Amount Raised </p>
                             </div>
                         </div>
 
                         <div className="stacking__project-item mt-4">
                             <div className="stacking__project-itemInner">
-                                <h3> 0.2 / $mart Token </h3>
+                                <h3> {rates[stage]} / $mart Token </h3>
                                 <p>Rate</p>
                             </div>
                         </div>

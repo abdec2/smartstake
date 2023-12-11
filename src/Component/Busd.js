@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDebounce } from "use-debounce";
 import { useAccount, usePrepareContractWrite, useContractWrite, useWaitForTransaction } from "wagmi";
 import { useWeb3Modal } from '@web3modal/wagmi/react'
+import { CONFIG } from './../config/config'
 
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
@@ -21,8 +22,9 @@ const Busd = () => {
 
     const handleInputChange = (e) => setInput(e.target.value)
 
-    const { config, refetch } = usePrepareContractWrite({
-        address: '0xc0711344841Ec0Ee4B302935f8758F65ec524C96',
+    const { config:approveConfig, refetch:prepareApprove } = usePrepareContractWrite({
+        enabled: false,
+        address: CONFIG.BUSD_ADDRESS,
         abi: [
           {
             name: 'approve',
@@ -50,12 +52,68 @@ const Busd = () => {
           },
         ],
         functionName: 'approve',
+        args: [CONFIG.PRESALE_CONTRACT_ADDRESS, regexp.test(debouncedAmount) ? parseEther(debouncedAmount) : undefined], 
+        onError(err) {
+            setLoading(false)
+            MySwal.fire({
+                icon: "error",
+                title: "Oops..!",
+                text: err,
+            })
+          console.log(err);
+        }
     })
 
-    const { data, write } = useContractWrite(config)
+    const { config:purchaseConfig, refetch:preparePurchase } = usePrepareContractWrite({
+        enabled: false,
+        address: CONFIG.PRESALE_CONTRACT_ADDRESS,
+        abi: [
+            {
+              name: 'buyTokensBUSD',
+              type: 'function',
+              stateMutability: 'nonpayable',
+              inputs: [
+                    {
+                        "internalType": "address",
+                        "name": "beneficiary",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "amount",
+                        "type": "uint256"
+                    }
+              ],
+              outputs: [],
+            },
+        ],
+        functionName: 'buyTokensBUSD',
+        args: [address, regexp.test(debouncedAmount) ? parseEther(debouncedAmount) : undefined], 
+        onError(err) {
+            setLoading(false)
+            MySwal.fire({
+                icon: "error",
+                title: "Oops..!",
+                text: err,
+            })
+          console.log(err);
+        }
+    })
+
+    const { data:approveData, writeAsync:approve } = useContractWrite(approveConfig)
+
+    const { data:purcahseData, writeAsync:purchase } = useContractWrite(purchaseConfig)
 
     const { isLoading, isSuccess } = useWaitForTransaction({
-        hash: data?.hash,
+        hash: approveData?.hash,
+        confirmations: 2,
+        onSuccess(data) {
+            submitPurchaseTransaction()
+        }
+    });
+
+    const { isLoading:pLoading, pIsSuccess } = useWaitForTransaction({
+        hash: purcahseData?.hash,
         onSuccess(data) {
             setLoading(false)
             MySwal.fire({
@@ -66,14 +124,24 @@ const Busd = () => {
         }
     });
 
+    const submitPurchaseTransaction = async () => {
+        try {
+            await preparePurchase()
+            await purchase?.()
+        } catch(e) {
+            setLoading(false)
+            console.log(e)
+        }
+    }
+
     const handleSubmit = async (e) => {
         try {
             e.preventDefault();
             setLoading(true)
             if (!isError) {
                 if(isConnected) {
-                    await refetch();
-                    write();
+                    await prepareApprove();
+                    await approve?.();
                 } else {
                     open()
                 }
@@ -115,8 +183,8 @@ const Busd = () => {
                 }
                 {
                     loading && (
-                        <div class="spinner-border" role="status">
-                            <span class="visually-hidden">Loading...</span>
+                        <div className="spinner-border" role="status">
+                            <span className="visually-hidden">Loading...</span>
                         </div>
                     )
                 }

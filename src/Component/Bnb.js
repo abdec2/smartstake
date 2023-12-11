@@ -3,6 +3,8 @@ import { useDebounce } from "use-debounce";
 import { useAccount, usePrepareSendTransaction, useSendTransaction, useWaitForTransaction } from "wagmi";
 import { useWeb3Modal } from '@web3modal/wagmi/react'
 
+import { CONFIG } from './../config/config'
+
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { parseEther } from "viem";
@@ -24,9 +26,8 @@ const Bnb = () => {
     const handleInputChange = (e) => setInput(e.target.value)
 
     const { config, refetch } = usePrepareSendTransaction({
-        enabled: false,
-        to: '0x02855E26211eA6a6e70eFA57CD9445a13Ff0F65E',
-        value: debouncedAmount ? parseEther(debouncedAmount) : undefined,
+        to: CONFIG.PRESALE_CONTRACT_ADDRESS,
+        value: regexp.test(debouncedAmount) ? parseEther(debouncedAmount) : undefined,
         onError(err) {
             setLoading(false)
             MySwal.fire({
@@ -36,9 +37,10 @@ const Bnb = () => {
             })
           console.log(err);
         },
+        enabled: false
     });
 
-    const { data, sendTransaction } = useSendTransaction(config);
+    const { data, sendTransactionAsync } = useSendTransaction(config);
 
     const { isLoading, isSuccess } = useWaitForTransaction({
         hash: data?.hash,
@@ -59,7 +61,7 @@ const Bnb = () => {
                 if(isConnected) {
                     setLoading(true)
                     await refetch();
-                    sendTransaction?.();
+                    await sendTransactionAsync?.();
                 } else {
                     open()
                 }
