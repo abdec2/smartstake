@@ -9,10 +9,10 @@ import React, { useState } from 'react';
 const HeaderComponent = () => {
     const [isOpen, setIsOpen] = useState(false)
     const [isDisplay, isSetDisplay] = useState(false)
-    const { address, isConnecting, isDisconnected } = useAccount()
+    const { address, isConnecting, isDisconnected, isConnected } = useAccount()
     const { open } = useWeb3Modal()
-    const firtDegit =  address?.slice(0,4)
-    const lastDegit =   address?.slice(-6)
+    // const firtDegit =  address?.slice(0,4)
+    // const lastDegit =   address?.slice(-6)
   
     return (
       <header className="header-section">
@@ -69,10 +69,20 @@ const HeaderComponent = () => {
                                   <li onClick={() => setIsOpen(false)}> <Link to={'Contact'}> Contact</Link></li>
                                 
                               </ul>
-                              <a className="wallet-btn" onClick={() => open()} data-bs-toggle="modal" data-bs-target="#wallet-option">
-                              
-                                  <span >{isDisconnected? "Connect" :`${firtDegit}...${lastDegit}`}
-                                  </span> <i className="fa-solid fa-wallet"></i></a>
+                                {
+                                    !isConnected ? (
+                                        <a className="wallet-btn" onClick={() => open()} data-bs-toggle="modal" data-bs-target="#wallet-option">
+                                            <span >Connect</span> 
+                                            <i className="fa-solid fa-wallet"></i>
+                                        </a>
+                                    ) : (
+                                        <a className="wallet-btn" onClick={() => open()} data-bs-toggle="modal" data-bs-target="#wallet-option">
+                                            <span >{`${address?.slice(0,4)}....${address?.slice(-4)}`}</span> 
+                                            <i className="fa-solid fa-wallet"></i>
+                                        </a>
+                                    )
+                                }
+                                
   
                                  
                               <div className={isOpen? "active  header-bar d-lg-none" : "header-bar d-lg-none"} onClick={() => setIsOpen(!isOpen)} >

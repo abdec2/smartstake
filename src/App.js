@@ -10,47 +10,48 @@ import Staking from "./Staking";
 import BuyToken from "./Component/BuyToken";
 import Bio from "./bio"
 import  KnowledgeBase  from "./knowledgeBase";
-
-
-
-import { createWeb3Modal, defaultWagmiConfig } from '@web3modal/wagmi/react'
-
-
-import { WagmiConfig } from 'wagmi'
-import { arbitrum, mainnet } from 'wagmi/chains'
 import Presale from "./Presale";
 
+import { createWeb3Modal } from '@web3modal/wagmi/react'
+import { walletConnectProvider, EIP6963Connector } from '@web3modal/wagmi'
+
+import { WagmiConfig, configureChains, createConfig } from 'wagmi'
+import { publicProvider } from 'wagmi/providers/public'
+import { bscTestnet } from 'viem/chains'
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
+import { InjectedConnector } from 'wagmi/connectors/injected'
+
+
+
+
 // 1. Get projectId
+const projectId = 'd631e72662e5cb28e0026c4277e0e630'
 
+const { chains, publicClient } = configureChains(
+  [bscTestnet],
+  [walletConnectProvider({projectId}), publicProvider()]
+)
+const metadata = {
+  name: 'Smart Staking'
+  
+}
 
+const wagmiConfig = createConfig({
+  autoConnect: false,
+  connectors: [
+    new WalletConnectConnector({ chains, options: { projectId, showQrModal: false, metadata } }),
+    new EIP6963Connector({ chains }),
+    new InjectedConnector({ chains, options: { shimDisconnect: true } }),
 
+  ],
+
+  publicClient
+})
+
+createWeb3Modal({ wagmiConfig, projectId, chains })
 
 
 function App() {
-
-  const projectId = '1242d9c1f7a1e32cc5fb0da6c6877f84'
-
-// 2. Create wagmiConfig
-const metadata = {
-  name: 'Web3Modal',
-  description: 'Web3Modal Example',
-  url: 'https://web3modal.com',
-  icons: ['https://avatars.githubusercontent.com/u/37784886']
-}
-  
-const chains = [mainnet, arbitrum]
-const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata,autoConnect: true,
- 
-})
-
-// 3. Create modal
-createWeb3Modal({ wagmiConfig, projectId, chains })
-   
- 
-  
-  
-  
-
 
   return (
     <WagmiConfig config={wagmiConfig}>
@@ -83,6 +84,7 @@ createWeb3Modal({ wagmiConfig, projectId, chains })
         
       </Routes>
       <FooterSection/>
+      
     </div>
     </WagmiConfig>
   );

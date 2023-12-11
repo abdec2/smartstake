@@ -22,7 +22,9 @@ h4.h7 {
   border-radius: 0;
 }
 
-
+button.swal2-confirm {
+  background-color: #145096 !important;
+}
 .stacking__project-itemInner > p {
   margin-top: 0;
   margin-bottom: 1rem;

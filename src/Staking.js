@@ -1,11 +1,6 @@
 import React,{useState} from 'react'
-import { Link } from 'react-router-dom'
-import { useAccount } from 'wagmi'
-import { useWeb3Modal } from '@web3modal/wagmi/react'
 import CountUp from 'react-countup';
 const Staking = () => {
-  const { address, isConnecting, isDisconnected } = useAccount()
-  const { open } = useWeb3Modal()
   const [showTab, setShowtab] = useState(1)
   return (
     <div className="stacking padding-top padding-bottom">
@@ -83,7 +78,7 @@ const Staking = () => {
                                 </ul>
                                 <div className="tab-content" id="myTabContent">
                                     <div className={showTab === 1 ? "tab-pane fade show active": "tab-pane fade"} id="period-tab1-pane" role="tabpanel"
-                                        aria-labelledby="period-tab1" tabindex="0">
+                                        aria-labelledby="period-tab1" tabIndex="0">
                                         <div className="stacking__info">
                                             <div className="row align-items-center g-5">
                                                 <div className="col-sm-8">
@@ -120,7 +115,7 @@ const Staking = () => {
                                         </div>
                                     </div>
                                     <div className={showTab === 2 ? "tab-pane fade show active": "tab-pane fade"} id="period-tab2-pane" role="tabpanel"
-                                        aria-labelledby="period-tab2" tabindex="0">
+                                        aria-labelledby="period-tab2" tabIndex="0">
                                         <div className="stacking__info">
                                             <div className="row align-items-center g-5">
                                                 <div className="col-sm-8">
@@ -157,7 +152,7 @@ const Staking = () => {
                                         </div>
                                     </div>
                                     <div className={showTab === 3 ?"tab-pane fade show active": "tab-pane fade"} id="period-tab3-pane" role="tabpanel"
-                                        aria-labelledby="period-tab3" tabindex="0">
+                                        aria-labelledby="period-tab3" tabIndex="0">
                                         <div className="stacking__info">
                                             <div className="row align-items-center g-5">
                                                 <div className="col-sm-8">
@@ -194,7 +189,7 @@ const Staking = () => {
                                         </div>
                                     </div>
                                     <div className={showTab === 4 ?"tab-pane fade show active": "tab-pane fade"} id="period-tab4-pane" role="tabpanel"
-                                        aria-labelledby="period-tab4" tabindex="0">
+                                        aria-labelledby="period-tab4" tabIndex="0">
                                         <div className="stacking__info">
                                             <div className="row align-items-center g-5">
                                                 <div className="col-sm-8">
@@ -242,12 +237,11 @@ const Staking = () => {
               <img src='\assets\images\shape\logoicon.svg' className='downloadImage'/>
               <h6>$MART SWAP</h6>
             </div>
-            <button onClick={() => open()}>{isDisconnected?"CONNECT":`${address?.slice(0,4)}...${address?.slice(-5)}`}</button>
           </div>
 
 
                                 <div className="stacking__approve-field mb-5">
-                                    <label for="approve-stack" className="form-label">Balance: <span>3529.00 BUSD</span>
+                                    <label htmlFor="approve-stack" className="form-label">Balance: <span>3529.00 BUSD</span>
                                     </label>
                                     <div className="input-group">
                                         <input type="text" className="form-control" aria-label="Approve Stack"
@@ -258,7 +252,7 @@ const Staking = () => {
                                 </div>
              
                                 <div className="stacking__approve-withdraw">
-                                    <label for="withdraw-stack" className="form-label">Staked: <span>350.70 BUSD</span>
+                                    <label htmlFor="withdraw-stack" className="form-label">Staked: <span>350.70 BUSD</span>
                                     </label>
                                     <div className="input-group">
                                         <input type="text" className="form-control" aria-label="Withdraw Stack"

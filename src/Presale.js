@@ -1,17 +1,12 @@
-import React,{useState} from 'react'
-import { Link } from 'react-router-dom'
-import { useAccount } from 'wagmi'
-import { useWeb3Modal } from '@web3modal/wagmi/react'
-import CountUp from 'react-countup';
+import React from 'react'
 import Bnb from './Component/Bnb';
 import Busd from './Component/Busd';
 import bnbIcon from './icons/bnb.png'
 import busdIcon from './icons/busd.png'
+import { useState } from 'react';
 
 const Presale = () => {
-  const { address, isConnecting, isDisconnected } = useAccount()
-  const { open } = useWeb3Modal()
-  const [showTab, setShowtab] = useState(1)
+    const [showTab, setShowTab] = useState(1)
   return (
     <div className="stacking padding-top padding-bottom">
     <div className="container">
@@ -56,29 +51,28 @@ const Presale = () => {
                                                     <img src='\assets\images\shape\logoicon.svg' className='downloadImage'/>
                                                     <h6>$MART Presale</h6>
                                                 </div>
-                                                <button onClick={() => open()}>{isDisconnected?"CONNECT":`${address?.slice(0,4)}...${address?.slice(-5)}`}</button>
                                             </div>
 
-                                            <ul class="nav nav-pills" id="myTab" role="tablist">
-                                                <li class="nav-item" role="presentation">
-                                                    <button class="nav-link text-white active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">
+                                            <ul className="nav nav-pills" id="myTab" role="tablist">
+                                                <li className="nav-item" role="presentation">
+                                                    <button className={`nav-link text-white ${showTab === 1 ? 'active' : ''}`} onClick={() => setShowTab(1)}>
                                                         <img src={bnbIcon} width={20} style={{ marginRight: '10px' }} alt="BNB" />
                                                         BNB
                                                     </button>
                                                 </li>
-                                                <li class="nav-item" role="presentation">
-                                                    <button class="nav-link text-white" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">
+                                                <li className="nav-item" role="presentation">
+                                                    <button className={`nav-link text-white ${showTab === 2 ? 'active' : ''}`} onClick={() => setShowTab(2)}>
                                                     <img src={busdIcon} width={20} style={{ marginRight: '10px' }} alt="BNB" />
                                                      BUSD
                                                     </button>
                                                 </li>
                                                 
                                             </ul>
-                                            <div class="tab-content" id="myTabContent">
-                                                <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                                            <div className="tab-content" id="myTabContent">
+                                                <div className={`tab-pane fade ${showTab === 1 ? 'show active' : ''}`} >
                                                     <Bnb />
                                                 </div>
-                                                <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                                                <div className={`tab-pane fade ${showTab === 2 ? 'show active' : ''}`} >
                                                     <Busd />
                                                 </div>
                                                 
