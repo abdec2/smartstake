@@ -13,7 +13,7 @@ const MySwal = withReactContent(Swal)
 
  
 
-const Bnb = () => {
+const Bnb = ({fetch}) => {
     const [input, setInput] = useState("");
     const [loading, setLoading] = useState(false)
     const [debouncedAmount] = useDebounce(input, 500);
@@ -46,6 +46,7 @@ const Bnb = () => {
         hash: data?.hash,
         onSuccess(data) {
             setLoading(false)
+            fetch()
             MySwal.fire({
                 icon: "success",
                 title: "Congrates!",
@@ -99,7 +100,7 @@ const Bnb = () => {
         </div>
 
         <div className="mt-3">
-            <button disabled={loading} className="input-group-btn p-3 w-100" onClick={handleSubmit}>
+            <button disabled={loading || !sendTransactionAsync} className="input-group-btn p-3 w-100" onClick={handleSubmit}>
                 {
                     !loading && 'Buy $mart'
                 }

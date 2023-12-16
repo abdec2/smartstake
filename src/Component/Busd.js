@@ -10,10 +10,10 @@ import { parseEther } from "viem";
 
 const MySwal = withReactContent(Swal)
 
-const Busd = () => {
-    const [input, setInput] = useState("");
+const Busd = ({fetch}) => {
+    const [input, setInput] = useState('');
     const [loading, setLoading] = useState(false)
-    const [debouncedAmount] = useDebounce(input, 500);
+    const [debouncedAmount] = useDebounce(input, 100);
     const regexp = /^\d+(\.\d{1,18})?$/;
 
     const { address, isConnected } = useAccount();
@@ -116,6 +116,7 @@ const Busd = () => {
         hash: purcahseData?.hash,
         onSuccess(data) {
             setLoading(false)
+            fetch()
             MySwal.fire({
                 icon: "success",
                 title: "Congrates!",
@@ -177,7 +178,7 @@ const Busd = () => {
         </div>
 
         <div className="mt-3">
-            <button disabled={loading} className="input-group-btn p-3 w-100" onClick={handleSubmit}>
+            <button disabled={loading || !approve} className="input-group-btn p-3 w-100" onClick={handleSubmit}>
                 {
                     !loading && 'Buy $mart'
                 }

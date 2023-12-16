@@ -15,7 +15,7 @@ const Home = () => {
     <CardSection/>
    
     <Section_3/>
-    <RoadmapSection/>
+    {/* <RoadmapSection/> */}
 
    
     

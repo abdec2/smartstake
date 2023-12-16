@@ -6,7 +6,7 @@ import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v4.9
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v4.9/contracts/utils/math/Math.sol";
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v4.9/contracts/token/ERC20/IERC20.sol";
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v4.9/contracts/security/ReentrancyGuard.sol";
-
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v4.9/contracts/access/Ownable.sol";
 
 
 interface IUniswapV2Router01 {
@@ -194,7 +194,7 @@ interface IUniswapV2Router02 is IUniswapV2Router01 {
     ) external;
 }
 
-contract Presale is ReentrancyGuard  {
+contract Presale is ReentrancyGuard, Ownable  {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
@@ -212,7 +212,7 @@ contract Presale is ReentrancyGuard  {
     uint256 private _weiRaised;
 
     uint256 private _minContribution = 1000;
-    uint256 private _totalDistribution;
+    uint256 public _totalDistribution;
 
     enum Stages {STAGE_1, STAGE_2, STAGE_3, STAGE_4, STAGE_5, STAGE_6}
 
@@ -244,7 +244,7 @@ contract Presale is ReentrancyGuard  {
 
     receive() external payable {
         uint256 amountReceived = convertBnbToToken(
-            usdToken,
+            address(_usdt),
             msg.value,
             address(this)
         );
@@ -257,7 +257,7 @@ contract Presale is ReentrancyGuard  {
         return stage;
     }
 
-    function setStage(Stages _stage) external {
+    function setStage(Stages _stage) external onlyOwner {
         stage = _stage;
     }
 
@@ -344,7 +344,7 @@ contract Presale is ReentrancyGuard  {
     function convertBnbToToken(
         address tokenAddress,
         uint256 amount,
-        address wallet
+        address walletAddress
     ) private returns (uint256) {
         address[] memory path = new address[](2);
         path[0] = uniswapV2Router.WETH();
@@ -353,7 +353,7 @@ contract Presale is ReentrancyGuard  {
         uint256 balanceBefore = IERC20(tokenAddress).balanceOf(address(this));
         uniswapV2Router.swapExactETHForTokensSupportingFeeOnTransferTokens{
             value: amount
-        }(0, path, wallet, block.timestamp + 3600);
+        }(0, path, walletAddress, block.timestamp + 3600);
         // get balance after
         uint256 balanceAfter = IERC20(tokenAddress).balanceOf(address(this));
         // get the difference
