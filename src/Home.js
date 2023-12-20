@@ -3,15 +3,17 @@ import BannerSection from "./Component/BannerSection";
 import CardSection from "./Component/CardSection";
 import RoadmapSection from "./Component/RoadmapSection";
 import Section_3 from "./Component/Section_3";
+import Presale from './Presale'
 
 
 
 
 const Home = () => {
   return (
-    <div> <BannerSection/>
+    <div> 
+      {/* <BannerSection/> */}
     
-   
+    <Presale />
     <CardSection/>
    
     <Section_3/>

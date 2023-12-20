@@ -38,32 +38,25 @@ const HeaderComponent = () => {
                                   </li>
                                   
                                   
-                                  <li onClick={() => setIsOpen(false)}>
+                                  {/* <li onClick={() => setIsOpen(false)}>
                                     <Link to={'/Staking'} >Staking</Link>  
-                                  </li>
+                                  </li> */}
 
-                                  <li onClick={() => setIsOpen(false)}>
+                                  {/* <li onClick={() => setIsOpen(false)}>
                                   <Link to={'/presale'}>Presale</Link>
-                                  </li>
+                                  </li> */}
 
-                                  <li onClick={() => setIsOpen(false)}>
+                                  {/* <li onClick={() => setIsOpen(false)}>
                                       <Link to={'BuyToken'}>Buy Now</Link>
                                      
-                                  </li>
-                                  <li onClick={() => setIsOpen(false)}>
-                                     <Link to={'Team'}> Team</Link>
-                                      
-                                  </li>
-                                  <li onClick={() => setIsOpen(false)}>
-                                  <Link to={'BlogPost'}>Blog</Link>    
-                                      
-                                  </li>
-                                 
+                                  </li> */}
+                                  
+{/*                                  
                                   <li>
                                   <Link to={'/KnowledgeBase'} onClick={() => setIsOpen(false)}>knowledge base</Link>  
                                       
                                   </li>
-                                  
+                                   */}
                                  
 
                                   <li onClick={() => setIsOpen(false)}> <Link to={'Contact'}> Contact</Link></li>

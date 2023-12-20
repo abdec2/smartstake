@@ -16,6 +16,9 @@ import { createWeb3Modal, defaultWagmiConfig  } from '@web3modal/wagmi/react'
 
 import { WagmiConfig } from 'wagmi'
 import { bscTestnet } from 'viem/chains'
+import OurStory from "./Component/ourStory";
+import AboutUs from "./Component/aboutus";
+import WhatStaking from "./Component/whatStaking";
 
 
 
@@ -55,15 +58,18 @@ function App() {
       <Routes>
       <Route path="/" element={<Home/>}/>
         
-        <Route  path="BlogPost" element={<BlogPost/>}/>
+        {/* <Route  path="BlogPost" element={<BlogPost/>}/> */}
         <Route path="Contact" element={<Contact/> }/>  
-        <Route path="Team" element={<Team/>} />  
-        <Route path="Staking" element={<Staking/>}/>
+        {/* <Route path="Team" element={<Team/>} />   */}
+        {/* <Route path="Staking" element={<Staking/>}/>
         <Route path="bio" element={<Bio/>}/>
-        <Route path="presale" element={<Presale />}/>
+        <Route path="presale" element={<Presale />}/> */}
         
-        <Route path="BuyToken" element={<BuyToken/>}/>
-        <Route path="KnowledgeBase" element={<KnowledgeBase/>}/>
+        {/* <Route path="BuyToken" element={<BuyToken/>}/> */}
+        {/* <Route path="KnowledgeBase" element={<KnowledgeBase/>}/> */}
+        <Route path="our_story" element={<OurStory/> }/>  
+        <Route path="about" element={<AboutUs/> }/>  
+        <Route path="about_staking" element={<WhatStaking /> }/>  
         
         
       </Routes>

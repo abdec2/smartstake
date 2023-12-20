@@ -1187,7 +1187,7 @@ cursor: pointer;
   display: flex;
   flex-direction: column;
   width: auto;
-  
+  text-align: center;
 }
  .instaDiv{
   width: 250px;

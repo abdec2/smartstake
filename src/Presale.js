@@ -162,10 +162,10 @@ const Presale = () => {
                                             </ul>
                                             <div className="tab-content" id="myTabContent">
                                                 <div className={`tab-pane fade ${showTab === 1 ? 'show active' : ''}`} >
-                                                    <Bnb fetch={fetchContractData} />
+                                                    <Bnb fetch={fetchContractData} rates={rates} stage={stage} />
                                                 </div>
                                                 <div className={`tab-pane fade ${showTab === 2 ? 'show active' : ''}`} >
-                                                    <Busd fetch={fetchContractData} />
+                                                    <Busd fetch={fetchContractData} rates={rates} stage={stage} />
                                                 </div>
                                                 
                                             </div>    

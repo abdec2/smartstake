@@ -281,7 +281,7 @@ contract Presale is ReentrancyGuard, Ownable  {
         return Math.min(token().balanceOf(_tokenWallet), token().allowance(_tokenWallet, address(this)));
     }
 
-    function buyTokens(address beneficiary, uint256 amount) public nonReentrant {
+    function buyTokens(address beneficiary, uint256 amount) internal nonReentrant {
         uint256 weiAmount = amount;
         _preValidatePurchase(beneficiary, weiAmount);
 

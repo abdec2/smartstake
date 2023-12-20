@@ -26,19 +26,17 @@ const Section_3 = () => {
       <div className="project__wrapper">
         <div className="row g-4">
           <div className="col-12">
-          <div className=" section-header--middle" style={{maxInlineSize: '600px'}}>
-            <div className="section-header__content">
-              <div className="section-header__titlebar">
-                <p className="section-header__subtitle"> $MART Token Address </p>
-                <div className="stacking__approve">
-                  <div className="stacking__approve-field">
-                      <div className="input-group">
-                          <input type="text" disabled className="form-control p-3" aria-label="Approve Stack"
-                              id="approve-stack" defaultValue="0xB4cb05C5BdfE7bB5a89db82C589704EAF29FD983" />
-                          <button className="input-group-btn text-white" style={{borderColor: 'white', background: 'none'}} onClick={copyToClipboard}>Copy</button>
-                      </div>
-                      
-                  </div>
+          <div className="section-header__content mx-auto mb-5" style={{maxInlineSize: '600px'}}>
+            <div className="section-header__titlebar">
+              <p className="section-header__subtitle text-center"> $MART Token Address </p>
+              <div className="stacking__approve">
+                <div className="stacking__approve-field">
+                    <div className="input-group">
+                        <input type="text" disabled className="form-control p-3" aria-label="Approve Stack"
+                            id="approve-stack" defaultValue="0xB4cb05C5BdfE7bB5a89db82C589704EAF29FD983" />
+                        <button className="input-group-btn text-white" style={{borderColor: 'white', background: 'none'}} onClick={copyToClipboard}>Copy</button>
+                    </div>
+                    
                 </div>
               </div>
             </div>

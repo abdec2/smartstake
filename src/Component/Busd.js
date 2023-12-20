@@ -3,6 +3,7 @@ import { useDebounce } from "use-debounce";
 import { useAccount, usePrepareContractWrite, useContractWrite, useWaitForTransaction } from "wagmi";
 import { useWeb3Modal } from '@web3modal/wagmi/react'
 import { CONFIG } from './../config/config'
+import busdAbi from './../config/busd.json'
 
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
@@ -10,62 +11,41 @@ import { parseEther } from "viem";
 
 const MySwal = withReactContent(Swal)
 
-const Busd = ({fetch}) => {
-    const [input, setInput] = useState('');
+const Busd = ({fetch, rates, stage}) => {
+    const [input, setInput] = useState('0');
     const [loading, setLoading] = useState(false)
-    const [debouncedAmount] = useDebounce(input, 100);
+    const [tokens, setTokens] = useState(0)
+
+    const [debouncedAmount] = useDebounce(input, 200);
     const regexp = /^\d+(\.\d{1,18})?$/;
 
     const { address, isConnected } = useAccount();
     const { open } = useWeb3Modal()
     const isError = input === "" || !regexp.test(input);
 
-    const handleInputChange = (e) => setInput(e.target.value)
+    const handleInputChange = (e) => {
+        setInput(e.target.value)
+        let cal = parseFloat(e.target.value) / parseFloat(rates[stage])
+        setTokens(isNaN(cal) ? 0 : cal)
+    }
 
     const { config:approveConfig, refetch:prepareApprove } = usePrepareContractWrite({
-        enabled: false,
         address: CONFIG.BUSD_ADDRESS,
-        abi: [
-          {
-            name: 'approve',
-            type: 'function',
-            stateMutability: 'nonpayable',
-            inputs: [
-                {
-                    "internalType": "address",
-                    "name": "spender",
-                    "type": "address"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "amount",
-                    "type": "uint256"
-                }
-            ],
-            outputs: [
-                {
-                    "internalType": "bool",
-                    "name": "",
-                    "type": "bool"
-                }
-            ],
-          },
-        ],
+        abi: busdAbi,
         functionName: 'approve',
-        args: [CONFIG.PRESALE_CONTRACT_ADDRESS, regexp.test(debouncedAmount) ? parseEther(debouncedAmount) : undefined], 
+        args: [CONFIG.PRESALE_CONTRACT_ADDRESS, regexp.test(debouncedAmount) ? parseEther(debouncedAmount) : parseEther('0')], 
         onError(err) {
             setLoading(false)
-            MySwal.fire({
-                icon: "error",
-                title: "Oops..!",
-                text: err,
-            })
+            // MySwal.fire({
+            //     icon: "error",
+            //     title: "Oops..!",
+            //     text: err,
+            // })
           console.log(err);
         }
     })
 
     const { config:purchaseConfig, refetch:preparePurchase } = usePrepareContractWrite({
-        enabled: false,
         address: CONFIG.PRESALE_CONTRACT_ADDRESS,
         abi: [
             {
@@ -88,14 +68,14 @@ const Busd = ({fetch}) => {
             },
         ],
         functionName: 'buyTokensBUSD',
-        args: [address, regexp.test(debouncedAmount) ? parseEther(debouncedAmount) : undefined], 
+        args: [address, regexp.test(debouncedAmount) ? parseEther(debouncedAmount) : parseEther('0')], 
         onError(err) {
             setLoading(false)
-            MySwal.fire({
-                icon: "error",
-                title: "Oops..!",
-                text: err,
-            })
+            // MySwal.fire({
+            //     icon: "error",
+            //     title: "Oops..!",
+            //     text: err,
+            // })
           console.log(err);
         }
     })
@@ -108,7 +88,12 @@ const Busd = ({fetch}) => {
         hash: approveData?.hash,
         confirmations: 2,
         onSuccess(data) {
-            submitPurchaseTransaction()
+            setLoading(false)
+            MySwal.fire({
+                icon: "success",
+                title: "Congrates!",
+                text: "BUSD Approved successfully.",
+            })
         }
     });
 
@@ -173,17 +158,30 @@ const Busd = ({fetch}) => {
             <label>Tokens</label>
             <div className="input-group">
                 <input disabled type="text" className="form-control" aria-label="Withdraw Stack"
-                    id="withdraw-stack" placeholder="0.00"/>
+                    id="withdraw-stack" placeholder="0.00" value={tokens}/>
             </div>
         </div>
 
-        <div className="mt-3">
-            <button disabled={loading || !approve} className="input-group-btn p-3 w-100" onClick={handleSubmit}>
+        <div className="mt-3 d-flex align-items-center justify-content-between">
+            <button disabled={loading || !approve} className="input-group-btn p-3 w-100 me-2" onClick={handleSubmit}>
                 {
-                    !loading && 'Buy $mart'
+                    !isLoading && 'Approve'
                 }
                 {
-                    loading && (
+                    isLoading && (
+                        <div className="spinner-border" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                        </div>
+                    )
+                }
+            </button>
+
+            <button disabled={loading} className="input-group-btn p-3 w-100 ms-2" onClick={submitPurchaseTransaction}>
+                {
+                    !pLoading && 'Buy $mart'
+                }
+                {
+                    pLoading && (
                         <div className="spinner-border" role="status">
                             <span className="visually-hidden">Loading...</span>
                         </div>
