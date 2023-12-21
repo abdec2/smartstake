@@ -38,9 +38,9 @@ const HeaderComponent = () => {
                                   </li>
                                   
                                   
-                                  {/* <li onClick={() => setIsOpen(false)}>
+                                  <li onClick={() => setIsOpen(false)}>
                                     <Link to={'/Staking'} >Staking</Link>  
-                                  </li> */}
+                                  </li>
 
                                   {/* <li onClick={() => setIsOpen(false)}>
                                   <Link to={'/presale'}>Presale</Link>

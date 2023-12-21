@@ -61,8 +61,8 @@ function App() {
         {/* <Route  path="BlogPost" element={<BlogPost/>}/> */}
         <Route path="Contact" element={<Contact/> }/>  
         {/* <Route path="Team" element={<Team/>} />   */}
-        {/* <Route path="Staking" element={<Staking/>}/>
-        <Route path="bio" element={<Bio/>}/>
+        <Route path="Staking" element={<Staking/>}/>
+        {/* <Route path="bio" element={<Bio/>}/>
         <Route path="presale" element={<Presale />}/> */}
         
         {/* <Route path="BuyToken" element={<BuyToken/>}/> */}

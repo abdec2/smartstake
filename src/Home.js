@@ -11,9 +11,9 @@ import Presale from './Presale'
 const Home = () => {
   return (
     <div> 
-      {/* <BannerSection/> */}
     
     <Presale />
+      <BannerSection/>
     <CardSection/>
    
     <Section_3/>
