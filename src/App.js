@@ -15,7 +15,7 @@ import Presale from "./Presale";
 import { createWeb3Modal, defaultWagmiConfig  } from '@web3modal/wagmi/react'
 
 import { WagmiConfig } from 'wagmi'
-import { bscTestnet } from 'viem/chains'
+import { bsc } from 'viem/chains'
 import OurStory from "./Component/ourStory";
 import AboutUs from "./Component/aboutus";
 import WhatStaking from "./Component/whatStaking";
@@ -30,7 +30,7 @@ const metadata = {
   name: 'Smart Staking'
 }
 
-const chains = [bscTestnet]
+const chains = [bsc]
 
 const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata })
 

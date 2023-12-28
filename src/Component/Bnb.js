@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDebounce } from "use-debounce";
-import { useAccount, usePrepareSendTransaction, useSendTransaction, useWaitForTransaction } from "wagmi";
+import { useAccount, useContractWrite, usePrepareSendTransaction, useSendTransaction, useWaitForTransaction } from "wagmi";
 import { useWeb3Modal } from '@web3modal/wagmi/react'
 
 import { CONFIG } from './../config/config'
@@ -11,6 +11,9 @@ import withReactContent from 'sweetalert2-react-content'
 import { formatEther, parseEther } from "viem";
 
 import { useContractRead } from 'wagmi'
+import { getPublicClient } from '@wagmi/core'
+
+
 
 
 const MySwal = withReactContent(Swal)
@@ -18,6 +21,7 @@ const MySwal = withReactContent(Swal)
  
 
 const Bnb = ({fetch, rates, stage}) => {
+    const publicClient = getPublicClient()
     const [input, setInput] = useState("0");
     const [tokens, setTokens] = useState(0)
     const [loading, setLoading] = useState(false)
@@ -28,19 +32,33 @@ const Bnb = ({fetch, rates, stage}) => {
     const { open } = useWeb3Modal()
     const isError = input === "" || !regexp.test(input);
 
-    const { data: rdata, isError: rError, isLoading: rIsLoading, refetch: rRefetch } = useContractRead({
-        address: CONFIG.ROUTER_ADDRESS,
-        abi: routerAbi,
-        functionName: 'getAmountsOut',
-        args: [parseEther('1'), ['0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd', CONFIG.BUSD_ADDRESS] ]
-    })
+    // const { data: rdata, isError: rError, isLoading: rIsLoading, refetch: rRefetch } = useContractRead({
+    //     address: CONFIG.ROUTER_ADDRESS,
+    //     abi: routerAbi,
+    //     functionName: 'getAmountsOut',
+    //     args: [parseEther(input), [CONFIG.WBNB, CONFIG.BUSD_ADDRESS] ]
+    // })
 
     const handleInputChange = async (e) => {
-        setInput(e.target.value)
-        await rRefetch()
-        const bnbUSDValue = formatEther(rdata[1])
-        const cal = (parseFloat(e.target.value) * parseFloat(bnbUSDValue)) / parseFloat(rates[stage])
-        setTokens(isNaN(cal) ? 0 : cal)
+        try {
+            setInput(e.target.value)
+            if(parseFloat(e.target.value) > 0) {
+                // await rRefetch()
+                const data = await publicClient.readContract({
+                    address: CONFIG.ROUTER_ADDRESS,
+                    abi: routerAbi,
+                    functionName: 'getAmountsOut',
+                    args: [parseEther('1'), [CONFIG.WBNB, CONFIG.BUSD_ADDRESS] ] 
+                  })
+                  const bnbUSDValue = formatEther(data[1])
+                  console.log(bnbUSDValue)
+                const cal = (parseFloat(e.target.value) * parseFloat(bnbUSDValue)) / parseFloat(rates[stage])
+                setTokens(isNaN(cal) ? 0 : cal)
+            }
+        } catch(e) {
+            console.log(e)
+            setTokens(0)
+        }
     }
 
     const { config, refetch } = usePrepareSendTransaction({
